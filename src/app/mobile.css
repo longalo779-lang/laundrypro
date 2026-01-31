@@ -145,7 +145,27 @@
 
     /* ===== POS Page Specific ===== */
 
-    /* POS grid layout - stack on mobile */
+    .pos-container {
+        display: flex !important;
+        flex-direction: column !important;
+        height: auto !important;
+        grid-template-columns: 1fr !important;
+    }
+
+    .pos-products {
+        overflow-y: visible !important;
+        margin-bottom: 24px;
+    }
+
+    /* Cart section specific adjustments */
+    .pos-cart {
+        position: relative !important;
+        height: auto !important;
+        max-height: 600px;
+        /* Limit height of cart on mobile if needed */
+    }
+
+    /* Fix grid layout inside POS */
     div[style*="grid-template-columns: 2fr 1fr"] {
         grid-template-columns: 1fr !important;
     }
@@ -154,9 +174,22 @@
         grid-template-columns: 1fr !important;
     }
 
-    /* Service cards smaller */
+    /* Service cards */
     div[style*="grid-template-columns: repeat(3"] {
         grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    /* Filter Category tabs in POS */
+    .pos-products>div[style*="display: 'flex'"] {
+        overflow-x: auto;
+        padding-bottom: 8px;
+        margin-bottom: 16px;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .pos-products>div[style*="display: 'flex'"]>button {
+        flex-shrink: 0;
     }
 
     /* Payment method grid */
@@ -166,12 +199,12 @@
 
     /* Quick amount buttons */
     div[style*="flexWrap: 'wrap'"] {
-        gap: 6px !important;
+        gap: 8px !important;
     }
 
     div[style*="flexWrap: 'wrap'"] button {
-        flex: 1 1 calc(33% - 6px) !important;
-        min-width: 80px !important;
+        flex: 1 0 calc(33% - 8px) !important;
+        min-width: unset !important;
     }
 
     /* Cart summary */
