@@ -41,11 +41,12 @@ export default function Sidebar() {
 
     return (
         <>
-            {/* Mobile Hamburger Button - CSS akan hide di desktop */}
+            {/* Mobile Hamburger Button - CSS akan hide di desktop, JS hide saat open */}
             <button
-                className="hamburger-btn"
+                className={`hamburger-btn ${isOpen ? 'hidden' : ''}`}
                 onClick={() => setIsOpen(true)}
                 aria-label="Open menu"
+                style={{ opacity: isOpen ? 0 : 1, pointerEvents: isOpen ? 'none' : 'auto' }}
             >
                 ☰
             </button>

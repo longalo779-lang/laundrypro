@@ -18,6 +18,15 @@
     align-items: center;
     justify-content: center;
     box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Hide hamburger when sidebar is open (handled by parent class or sibling selector) */
+body:has(.sidebar.open) .hamburger-btn,
+.sidebar.open~.hamburger-btn {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.8);
 }
 
 /* Close Button in Sidebar */
