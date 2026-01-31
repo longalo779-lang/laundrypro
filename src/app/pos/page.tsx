@@ -957,8 +957,8 @@ export default function POSPage() {
                         </div>
                     )}
 
-                    {/* Cash Input */}
-                    {paymentMethod === 'cash' && (
+                    {/* Cash Input - Only show if paying now */}
+                    {paymentStatus !== 'later' && paymentMethod === 'cash' && (
                         <div>
                             <label className="input-label">Uang Diterima</label>
                             <input
@@ -1074,7 +1074,7 @@ export default function POSPage() {
                         <span>{formatCurrency(completedOrder?.totalPrice || 0)}</span>
                     </div>
 
-                    {paymentMethod === 'cash' && cashReceived && (
+                    {paymentStatus !== 'later' && paymentMethod === 'cash' && cashReceived && (
                         <>
                             <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '8px', fontSize: '12px' }}>
                                 <span>Tunai</span>

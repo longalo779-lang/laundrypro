@@ -129,11 +129,111 @@
         width: 95vw !important;
         max-width: 95vw !important;
         max-height: 90vh !important;
+        margin: 5vh auto !important;
+    }
+
+    /* Modal inner content scrollable */
+    .modal-content>div {
+        max-height: 80vh;
+        overflow-y: auto;
     }
 
     /* Button full width in header */
     .page-header .btn {
         width: 100%;
+    }
+
+    /* ===== POS Page Specific ===== */
+
+    /* POS grid layout - stack on mobile */
+    div[style*="grid-template-columns: 2fr 1fr"] {
+        grid-template-columns: 1fr !important;
+    }
+
+    div[style*="gridTemplateColumns"] {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Service cards smaller */
+    div[style*="grid-template-columns: repeat(3"] {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    /* Payment method grid */
+    div[style*="gridTemplateColumns: repeat(4"] {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    /* Quick amount buttons */
+    div[style*="flexWrap: 'wrap'"] {
+        gap: 6px !important;
+    }
+
+    div[style*="flexWrap: 'wrap'"] button {
+        flex: 1 1 calc(33% - 6px) !important;
+        min-width: 80px !important;
+    }
+
+    /* Cart summary */
+    div[style*="position: 'sticky'"] {
+        position: relative !important;
+        top: auto !important;
+    }
+
+    /* ===== Orders Page Specific ===== */
+
+    /* Filter tabs */
+    div[style*="display: 'flex'"][style*="gap: '8px'"] {
+        flex-wrap: wrap !important;
+    }
+
+    .tab {
+        flex: 1 1 auto;
+        min-width: 100px;
+        text-align: center;
+    }
+
+    /* ===== Form Inputs ===== */
+
+    /* Form row - stack vertically */
+    div[style*="display: 'flex'"][style*="gap: '16px'"] {
+        flex-direction: column !important;
+        gap: 12px !important;
+    }
+
+    div[style*="display: 'flex'"][style*="gap: '16px'"]>div {
+        width: 100% !important;
+    }
+
+    /* Input and select full width */
+    .input,
+    .select,
+    input,
+    select,
+    textarea {
+        width: 100% !important;
+    }
+
+    /* ===== Action Buttons ===== */
+
+    /* Action buttons in table */
+    td:last-child {
+        white-space: nowrap;
+    }
+
+    td .btn {
+        padding: 6px 10px !important;
+        font-size: 11px !important;
+    }
+
+    /* ===== Date Inputs ===== */
+    input[type="date"] {
+        width: 100% !important;
+    }
+
+    /* ===== Search Box ===== */
+    div[style*="position: 'relative'"] input[type="text"] {
+        width: 100% !important;
     }
 }
 
@@ -156,6 +256,33 @@
     .main-content {
         padding: 12px !important;
         padding-top: 72px !important;
+    }
+
+    /* Service cards - 1 column on very small screens */
+    div[style*="grid-template-columns: repeat(3"] {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Payment method - 2 columns */
+    div[style*="gridTemplateColumns: repeat(4"] {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    /* Quick amounts - smaller */
+    div[style*="flexWrap: 'wrap'"] button {
+        flex: 1 1 calc(50% - 6px) !important;
+        padding: 6px 8px !important;
+        font-size: 11px !important;
+    }
+
+    /* Modal smaller */
+    .modal-content {
+        padding: 16px !important;
+    }
+
+    /* Receipt smaller */
+    .receipt-preview {
+        padding: 16px !important;
     }
 }
 
