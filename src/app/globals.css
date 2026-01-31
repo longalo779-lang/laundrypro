@@ -463,8 +463,15 @@ tr:hover {
   justify-content: center;
 }
 
+/* App Container */
+.app-container {
+  display: flex;
+  min-height: 100vh;
+}
+
 /* Main Content */
 .main-content {
+  flex: 1;
   margin-left: 280px;
   min-height: 100vh;
   padding: 24px;

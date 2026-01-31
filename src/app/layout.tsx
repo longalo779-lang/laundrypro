@@ -22,10 +22,12 @@ export default function RootLayout({
   return (
     <html lang="id">
       <body className={inter.variable}>
-        <Sidebar />
-        <main className="main-content">
-          {children}
-        </main>
+        <div className="app-container">
+          <Sidebar />
+          <main className="main-content">
+            {children}
+          </main>
+        </div>
       </body>
     </html>
   );
