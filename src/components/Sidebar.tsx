@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 const navigation = [
     {
@@ -37,112 +37,40 @@ const navigation = [
 
 export default function Sidebar() {
     const pathname = usePathname();
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const [isMobile, setIsMobile] = useState(false);
-
-    // Detect mobile screen
-    useEffect(() => {
-        const checkMobile = () => {
-            setIsMobile(window.innerWidth <= 768);
-        };
-        checkMobile();
-        window.addEventListener('resize', checkMobile);
-        return () => window.removeEventListener('resize', checkMobile);
-    }, []);
-
-    const toggleMobileMenu = () => {
-        setIsMobileMenuOpen(!isMobileMenuOpen);
-    };
-
-    const closeMobileMenu = () => {
-        setIsMobileMenuOpen(false);
-    };
-
-    // Styles for mobile sidebar
-    const sidebarStyle: React.CSSProperties = isMobile ? {
-        position: 'fixed',
-        top: 0,
-        left: isMobileMenuOpen ? 0 : -280,
-        height: '100vh',
-        width: 280,
-        zIndex: 1000,
-        transition: 'left 0.3s ease',
-        boxShadow: isMobileMenuOpen ? '4px 0 20px rgba(0, 0, 0, 0.3)' : 'none',
-    } : {};
-
-    const overlayStyle: React.CSSProperties = {
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        background: 'rgba(0, 0, 0, 0.5)',
-        zIndex: 999,
-        backdropFilter: 'blur(4px)',
-    };
+    const [isOpen, setIsOpen] = useState(false);
 
     return (
         <>
-            {/* Mobile Hamburger Button - Only show on mobile */}
-            {isMobile && (
-                <button
-                    onClick={toggleMobileMenu}
-                    aria-label="Toggle menu"
-                    style={{
-                        position: 'fixed',
-                        top: 20,
-                        left: 20,
-                        zIndex: 1001,
-                        width: 50,
-                        height: 50,
-                        borderRadius: 12,
-                        background: 'var(--primary)',
-                        color: 'white',
-                        border: 'none',
-                        fontSize: 24,
-                        cursor: 'pointer',
-                        boxShadow: '0 4px 12px rgba(99, 102, 241, 0.3)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                    }}
-                >
-                    {isMobileMenuOpen ? '✕' : '☰'}
-                </button>
-            )}
+            {/* Mobile Hamburger Button - CSS akan hide di desktop */}
+            <button
+                className="hamburger-btn"
+                onClick={() => setIsOpen(true)}
+                aria-label="Open menu"
+            >
+                ☰
+            </button>
 
-            {/* Overlay for mobile */}
-            {isMobile && isMobileMenuOpen && (
-                <div
-                    style={overlayStyle}
-                    onClick={closeMobileMenu}
-                />
-            )}
+            {/* Overlay */}
+            <div
+                className={`mobile-overlay ${isOpen ? 'active' : ''}`}
+                onClick={() => setIsOpen(false)}
+            />
 
             {/* Sidebar */}
-            <aside className="sidebar" style={sidebarStyle}>
-                <div className="sidebar-header" style={isMobile ? { display: 'flex', justifyContent: 'space-between', alignItems: 'center' } : {}}>
+            <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
+                <div className="sidebar-header">
                     <div className="sidebar-logo">
                         <div className="sidebar-logo-icon">🧺</div>
                         <span className="sidebar-logo-text">LaundryPro</span>
                     </div>
-                    {/* Close button for mobile */}
-                    {isMobile && (
-                        <button
-                            onClick={closeMobileMenu}
-                            aria-label="Close menu"
-                            style={{
-                                background: 'transparent',
-                                border: 'none',
-                                color: 'var(--foreground)',
-                                fontSize: 24,
-                                cursor: 'pointer',
-                                padding: 8,
-                            }}
-                        >
-                            ✕
-                        </button>
-                    )}
+                    {/* Close button */}
+                    <button
+                        className="close-btn"
+                        onClick={() => setIsOpen(false)}
+                        aria-label="Close menu"
+                    >
+                        ✕
+                    </button>
                 </div>
 
                 <nav className="sidebar-nav">
@@ -156,7 +84,7 @@ export default function Sidebar() {
                                         key={item.name}
                                         href={item.href}
                                         className={`nav-item ${isActive ? 'active' : ''}`}
-                                        onClick={closeMobileMenu}
+                                        onClick={() => setIsOpen(false)}
                                     >
                                         <span className="nav-item-icon">{item.icon}</span>
                                         {item.name}
