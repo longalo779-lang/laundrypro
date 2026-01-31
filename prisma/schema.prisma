@@ -1,0 +1,152 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// === PRODUCTION (PostgreSQL) ===
+// Untuk development lokal, gunakan PostgreSQL juga agar konsisten
+// Atau bisa gunakan SQLite untuk dev dan PostgreSQL untuk production
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ==================== MODELS ====================
+
+// Pelanggan
+model Customer {
+  id          String   @id @default(cuid())
+  name        String
+  phone       String   @unique
+  email       String?
+  address     String?
+  preferences String?
+  totalOrders Int      @default(0)
+  totalSpent  Float    @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  orders Order[]
+}
+
+// Layanan
+model Service {
+  id            String   @id @default(cuid())
+  name          String
+  description   String?
+  price         Float
+  unit          String
+  category      String
+  estimatedDays Int      @default(2)
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  orderItems OrderItem[]
+}
+
+// Order
+model Order {
+  id                  String   @id @default(cuid())
+  orderNumber         String   @unique
+  customerId          String
+  customerName        String
+  customerPhone       String
+  totalWeight         Float    @default(0)
+  totalPrice          Float
+  discountAmount      Float    @default(0)
+  finalPrice          Float
+  status              String   @default("PENDING") // PENDING, WASHING, DRYING, IRONING, READY, COMPLETED, CANCELLED
+  paymentStatus       String   @default("UNPAID") // UNPAID, PARTIAL, PAID
+  paymentMethod       String?
+  paidAmount          Float    @default(0)
+  notes               String?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  estimatedCompletion DateTime
+  completedAt         DateTime?
+  pickedUpAt          DateTime?
+
+  customer Customer    @relation(fields: [customerId], references: [id])
+  items    OrderItem[]
+  payments Payment[]
+}
+
+// Item dalam Order
+model OrderItem {
+  id           String @id @default(cuid())
+  orderId      String
+  serviceId    String
+  serviceName  String
+  quantity     Int    @default(1)
+  weight       Float?
+  pricePerUnit Float
+  subtotal     Float
+
+  order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  service Service @relation(fields: [serviceId], references: [id])
+}
+
+// Pembayaran
+model Payment {
+  id            String   @id @default(cuid())
+  orderId       String
+  amount        Float
+  paymentMethod String
+  notes         String?
+  createdAt     DateTime @default(now())
+
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+}
+
+// Inventaris
+model InventoryItem {
+  id           String   @id @default(cuid())
+  name         String
+  category     String
+  stock        Int      @default(0)
+  unit         String
+  minStock     Int      @default(10)
+  pricePerUnit Float    @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  stockHistory InventoryHistory[]
+}
+
+// Riwayat Stok Inventaris
+model InventoryHistory {
+  id              String   @id @default(cuid())
+  inventoryItemId String
+  type            String   // IN, OUT, ADJUSTMENT
+  quantity        Int
+  notes           String?
+  createdAt       DateTime @default(now())
+
+  inventoryItem InventoryItem @relation(fields: [inventoryItemId], references: [id], onDelete: Cascade)
+}
+
+// Transaksi Keuangan
+model Transaction {
+  id          String   @id @default(cuid())
+  type        String   // INCOME, EXPENSE
+  category    String
+  amount      Float
+  description String
+  createdAt   DateTime @default(now())
+}
+
+// Pengaturan Toko (untuk struk/invoice)
+model Settings {
+  id             String   @id @default(cuid())
+  businessName   String   @default("LaundryPro")
+  address        String?
+  phone          String?
+  email          String?
+  receiptFooter  String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
