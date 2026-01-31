@@ -844,3 +844,234 @@ tr:hover {
   font-weight: bold;
   font-size: 18px;
 }
+
+/* ==================== MOBILE RESPONSIVE ==================== */
+
+/* Mobile Menu Toggle Button */
+.mobile-menu-toggle {
+  display: none;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1001;
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+  transition: all 0.3s ease;
+}
+
+.mobile-menu-toggle:hover {
+  background: var(--primary-dark);
+  transform: scale(1.05);
+}
+
+.mobile-menu-toggle:active {
+  transform: scale(0.95);
+}
+
+/* Sidebar Overlay (Mobile) */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  backdrop-filter: blur(4px);
+}
+
+/* Sidebar Close Button (Mobile only) */
+.sidebar-close-btn {
+  display: none;
+  background: transparent;
+  border: none;
+  color: var(--foreground);
+  font-size: 24px;
+  cursor: pointer;
+  padding: 8px;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.sidebar-close-btn:hover {
+  opacity: 1;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+
+  /* Show mobile menu toggle */
+  .mobile-menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Show close button in sidebar */
+  .sidebar-close-btn {
+    display: block;
+  }
+
+  /* Update sidebar header for mobile */
+  .sidebar-header {
+    justify-content: space-between !important;
+    padding: 16px 20px !important;
+  }
+
+  /* Hide sidebar by default on mobile */
+  .sidebar {
+    position: fixed !important;
+    top: 0;
+    left: -280px;
+    height: 100vh;
+    width: 280px;
+    z-index: 1000;
+    transition: left 0.3s ease;
+  }
+
+  /* Show sidebar when mobile menu is open */
+  .sidebar-mobile-open {
+    left: 0 !important;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Show overlay when mobile menu is open */
+  .sidebar-mobile-open~.sidebar-overlay,
+  .sidebar-overlay {
+    display: block;
+  }
+
+  /* Adjust main content for mobile */
+  main {
+    margin-left: 0 !important;
+    padding: 20px 16px !important;
+    padding-top: 80px !important;
+    /* Space for hamburger button */
+  }
+
+  /* Adjust page header for mobile */
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 16px;
+  }
+
+  /* Adjust stats grid for mobile */
+  .stats-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Adjust cards for mobile */
+  .card {
+    padding: 16px !important;
+  }
+
+  /* Make tables scrollable on mobile */
+  .table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  table {
+    min-width: 600px;
+  }
+
+  /* Stack buttons vertically on mobile */
+  .page-header>div {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .page-header button,
+  .page-header .btn {
+    width: 100%;
+  }
+
+  /* Adjust modal for mobile */
+  .modal-content {
+    width: 95vw !important;
+    max-width: 95vw !important;
+    margin: 10px !important;
+  }
+
+  /* Adjust POS grid for mobile */
+  .pos-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Adjust service grid for mobile */
+  .service-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Stack form fields on mobile */
+  .form-row {
+    flex-direction: column !important;
+  }
+
+  .form-row>div {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 480px) {
+
+  /* Extra small devices adjustments */
+  .page-title {
+    font-size: 24px !important;
+  }
+
+  .stat-card {
+    padding: 16px !important;
+  }
+
+  .stat-value {
+    font-size: 24px !important;
+  }
+
+  .btn {
+    padding: 10px 16px !important;
+    font-size: 13px !important;
+  }
+
+  .mobile-menu-toggle {
+    width: 45px;
+    height: 45px;
+    font-size: 22px;
+  }
+}
+
+/* Tablet Responsive */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .sidebar {
+    width: 240px !important;
+  }
+
+  main {
+    margin-left: 240px !important;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* Desktop optimizations */
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1320px;
+    margin: 0 auto;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
+  }
+}
