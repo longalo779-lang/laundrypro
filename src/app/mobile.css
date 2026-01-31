@@ -222,6 +222,38 @@ body:has(.sidebar.open) .hamburger-btn,
         top: auto !important;
     }
 
+    /* ===== Dashboard Specific ===== */
+
+    /* Main Grid Layout - Stack Vertically */
+    div[style*="gridTemplateColumns: '1fr 400px'"],
+    div[style*="grid-template-columns: 1fr 400px"] {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 24px !important;
+    }
+
+    /* Recent Orders Card */
+    .card h2 {
+        font-size: 16px !important;
+    }
+
+    /* Sidebar Widgets (Financial, Top Customers, etc) */
+    div[style*="flexDirection: 'column'"][style*="gap: '24px'"] {
+        gap: 16px !important;
+    }
+
+    /* Ensure full width for stacked items */
+    div[style*="flexDirection: 'column'"][style*="gap: '24px'"]>div {
+        width: 100% !important;
+    }
+
+    /* Stats Grid (Quick Stats at bottom) */
+    div[style*="gridTemplateColumns: '1fr 1fr'"],
+    div[style*="grid-template-columns: 1fr 1fr"] {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px !important;
+    }
+
     /* ===== Orders Page Specific ===== */
 
     /* Filter tabs */
