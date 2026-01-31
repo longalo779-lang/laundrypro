@@ -957,11 +957,12 @@ tr:hover {
   }
 
   /* Adjust main content for mobile */
-  main {
+  main,
+  .main-content {
     margin-left: 0 !important;
     padding: 20px 16px !important;
-    padding-top: 80px !important;
-    /* Space for hamburger button */
+    padding-top: 90px !important;
+    width: 100% !important;
   }
 
   /* Adjust page header for mobile */
